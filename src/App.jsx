@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -12,6 +12,43 @@ function App() {
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [sortOrder, setSortOrder] = useState('asc');
   const [selectedRole, setSelectedRole] = useState('');
+
+  // const hasRun=useRef(false);
+
+//   const handleLoadData=() => {
+    
+       
+//        fetch('http://localhost:8080/user/loadData', {
+//         method: 'POST',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//       body: JSON.stringify({}) // send empty body or required payload
+//       })
+//     .then(response => response.text())
+//     .then(text => console.log('Response',text))
+//     .catch(err => console.error('Fetch error:', err));
+    
+ 
+// };
+
+  useEffect(() => {
+    
+       
+       fetch('http://localhost:8080/user/loadData', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      body: JSON.stringify({}) // send empty body or required payload
+      })
+    .then(response => response.text())
+    .then(text => console.log('Response',text))
+    .catch(err => console.error('Fetch error:', err));
+    
+ 
+},[]);
+
 
   const handleSearch = () => {
     console.log('Searching for:', query);
@@ -75,6 +112,8 @@ function App() {
   
   return (
     <div className="search-container" id="search-container">
+      {/* <button onClick={handleLoadData}>Load Data to Backend</button> */}
+
      <div className="search-bar">
         <input
           type="text"
