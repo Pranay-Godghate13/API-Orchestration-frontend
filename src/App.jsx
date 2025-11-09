@@ -9,6 +9,9 @@ function App() {
   const [users, setUsers] = useState([]);
   const [loading,setLoading]=useState(false);
   const [error,setError]=useState();
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [sortOrder, setSortOrder] = useState('asc');
+  const [selectedRole, setSelectedRole] = useState('');
 
   const handleSearch = () => {
     console.log('Searching for:', query);
@@ -44,6 +47,23 @@ function App() {
     }
   };
 
+  const handleSort = () => {
+    const sorted = [...filteredUsers].sort((a, b) =>
+      sortOrder === 'asc' ? a.age - b.age : b.age - a.age
+    );
+    setFilteredUsers(sorted);
+    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+  };
+
+  const handleRoleFilter = (e) => {
+    const role = e.target.value;
+    setSelectedRole(role);
+    const filtered = role
+      ? users.filter(user => user.role.toLowerCase() === role.toLowerCase())
+      : users;
+    setFilteredUsers(filtered);
+  };
+
   if(loading)
   {
     return <p className='loading-class'>Loading...</p>
@@ -68,35 +88,31 @@ function App() {
       </div>
 
       {users.length > 0 && (
-        <table className="user-table">
-          <thead>
-            <tr>
-             
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Role</th>
-              <th>Age</th>
-              <th>Email</th>
-              <th>Gender</th>
-              <th>SSN</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user, index) => (
-              <tr key={index}>
-                
-                <td>{user.firstName}</td>
-                <td>{user.lastName}</td>
-                <td>{user.role}</td>
-                <td>{user.age}</td>
-                <td>{user.email}</td>
-                <td>{user.gender}</td>
-                <td>{user.ssn}</td>
-              </tr>
+        <div className="controls">
+          <select className="role-filter" value={selectedRole} onChange={handleRoleFilter}>
+            <option value="">All Roles</option>
+            {[...new Set(users.map(user => user.role))].map((role, index) => (
+              <option key={index} value={role}>{role}</option>
             ))}
-          </tbody>
-        </table>
+          </select>
+          <button className="sort-button" onClick={handleSort}>
+            Sort by Age ({sortOrder === 'asc' ? '↑' : '↓'})
+          </button>
+        </div>
       )}
+
+      <div className="user-grid">
+        {filteredUsers.map((user, index) => (
+          <div key={index} className="user-card">
+            <p><strong>Name:</strong> {user.firstName} {user.lastName}</p>
+            <p><strong>Role:</strong> {user.role}</p>
+            <p><strong>Age:</strong> {user.age}</p>
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Gender:</strong> {user.gender}</p>
+            <p><strong>SSN:</strong> {user.ssn}</p>
+          </div>
+        ))}
+      </div>
 
       
     </div>
