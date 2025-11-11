@@ -5,22 +5,39 @@
   padding: 2rem 0;
 }
 
+/* Card styling */
 .user-card {
-  background-color: white;
-  border: 1px solid #ddd;
+  background-color: #1F2A38;        /* Dark navy card */
+  border: 1px solid #2E3C4D;        /* Soft border */
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  color: #E3E9F0;                   /* Light text */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);  /* Stronger dark shadow */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Hover effect */
 .user-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  border-color: #4D7CFF;            /* Subtle blue highlight */
 }
 
 .user-card p {
   margin: 0.5rem 0;
   font-size: 0.95rem;
   line-height: 1.4;
+  color: #D7E2EF;
+}
+
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(77, 124, 255, 0.3); /* blue glow */
+  border-color: #4D7CFF;
+}
+
+.user-card .email {
+  color: #4D7CFF;
+  cursor: pointer;
+  text-decoration: underline;
 }

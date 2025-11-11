@@ -67,7 +67,7 @@ function HomePage() {
 
   return (
     <div className="search-container">
-      <Header />
+      
       
       <SearchBar query={query} setQuery={setQuery} onSearch={handleSearch} />
       {users.length > 0 && (
