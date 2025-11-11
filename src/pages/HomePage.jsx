@@ -9,6 +9,8 @@ import ErrorFallback from '../components/ErrorFallback/ErrorFallback';
 import axios from 'axios';
 import { Suspense } from 'react';
 import React from "react";
+import { toast } from "react-toastify";
+
 const UserGrid=React.lazy(()=>import('../components/UserGrid/UserGrid'));
 function HomePage() {
   const [query, setQuery] = useState('');
@@ -27,7 +29,11 @@ function HomePage() {
   }, []);
 
   const handleSearch = async () => {
-    if (!query || query.trim().length < 3) return;
+    if (!query || query.trim().length < 3)
+      {
+         toast.error("Please enter at least 3 characters!");
+         return;
+      } 
     try {
       setLoading(true);
       const res = await searchUsers(query);

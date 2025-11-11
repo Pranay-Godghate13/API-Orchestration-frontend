@@ -16,6 +16,7 @@ function SearchBar({ query, setQuery, onSearch }) {
         onKeyPress={handleKeyPress}
         className="search-input"
       />
+      
       <button className="search-button" onClick={onSearch}>Search</button>
     </div>
   );
